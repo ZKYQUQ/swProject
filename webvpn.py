@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup as bs
 
 import saver
 
+# login
 base_url = "https://webvpn.bit.edu.cn"
 login_url = base_url + \
             "/https/77726476706e69737468656265737421fcf84695297e6a596a468ca88d1b203b/authserver/login?service=https%3A%2F%2Fwebvpn.bit.edu.cn%2Flogin%3Fcas_login%3Dtrue"
