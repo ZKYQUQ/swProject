@@ -5,6 +5,7 @@ from datetime import datetime, date
 from flask import Flask, request, Response, send_file
 from flask_cors import CORS
 import json
+import sys
 
 import db
 import execJs
@@ -60,7 +61,8 @@ def slp():
 
 # "http://localhost:5000/verify?sid=1120202079&pwd=xxx"
 # verify
-@app.route("/verify/", methods=['GET'])
+@app.route("/api/v2/user/verify/", methods=['GET'])
+# @app.route("/verify/", methods=['GET'])
 def verify():
     sid = request.args.get('sid', '')
     pwd = request.args.get('pwd', '')
@@ -86,7 +88,8 @@ def verify():
 
 # "http://localhost:5000/setname/?sid=1120202079&nickname=zkyquq"
 # setname
-@app.route("/setname/", methods=['GET'])
+@app.route("/api/v1/user/setname/", methods=['GET'])
+# @app.route("/setname/", methods=['GET'])
 def set_name():
     sid = request.args.get('sid', '')
     nickname = request.args.get('nickname', '')
@@ -104,7 +107,8 @@ def set_name():
 
 # "http://localhost:5000/getname/?sid=1120202079"
 # getname
-@app.route("/getname/", methods=['GET'])
+@app.route("/api/v1/user/getname/", methods=['GET'])
+# @app.route("/getname/", methods=['GET'])
 def get_name():
     sid = request.args.get('sid', '')
     if not sid:
@@ -123,7 +127,8 @@ def get_name():
 # "http://localhost:5000/geturl?sid=1120202079&cookie="
 # "http://localhost:5000/geturl?term=2022-2023-1&sid=1120202079&cookie="
 # getUrl
-@app.route("/geturl/", methods=['GET'])
+@app.route("/api/v1/course/url/", methods=['GET'])
+# @app.route("/geturl/", methods=['GET'])
 def get_url():
     sid = request.args.get('sid', '')
     cookie = request.args.get('cookie', '')
@@ -141,7 +146,8 @@ def get_url():
 
 
 # "http://localhost:5000/weekcourse?term=2022-2023-2&sid=1120202079&week=13"
-@app.route("/weekcourse/", methods=['GET'])
+@app.route("/api/v1/course/schedule/", methods=['GET'])
+# @app.route("/weekcourse/", methods=['GET'])
 def get_week_course():
     sid = request.args.get('sid', '')
     week = request.args.get('week', '')
@@ -178,8 +184,17 @@ def download():
 
 
 if __name__ == '__main__':
-    # app.run(host="0.0.0.0", port=5000)
-    # app.run(host='0.0.0.0', port=5000, debug=False, threaded=True)
 
-    app.run(debug=True)
-    # app.run(debug=True, host="0.0.0.0", port=8000)
+    # config.project_path=sys.argv[1]
+    config.project_path = os.environ.get('PROJECT_PATH')
+    config.ics_save_path = config.project_path + "save/ics"
+    config.json_save_path = config.project_path + "save/json"
+    config.psw_js_path = config.project_path + "EncryptPassword.js"
+    # print(config.project_path)
+    # print("input:  "+os.environ.get('PROJECT_PATH'))
+    # print("project:  "+config.project_path)
+    # print("json:  "+config.json_save_path)
+    # app.run(host="0.0.0.0", port=5000)
+    app.run(host='0.0.0.0', port=5000, debug=False, threaded=True)
+
+    # app.run(host="0.0.0.0", port=5000,debug=True)

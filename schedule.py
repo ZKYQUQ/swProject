@@ -85,7 +85,7 @@ def get_week_schedule(sid, target_week, term):
     if not os.path.exists(filepath):
         return {'data': 'please get your schedule first'}
     # make response data in specified format
-    with open(filepath, 'r') as f:
+    with open(filepath, 'r',encoding="GBK") as f:
         data = json.load(f)
     # add valid courses
     filtered_courses = []
