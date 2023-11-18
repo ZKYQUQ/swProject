@@ -22,19 +22,25 @@ def verify(username, password, execution, cookie, captcha=""):
     return False
 
 
-# set nickname
-def set_name(sid, nickname):
-    if db.check_user(sid):
-        db.set_nickname(sid, nickname)
-    else:
-        db.insert_user(sid, nickname)
-    return True
+# ====================================================================================================
+# ====================================================================================================
+# ====================================================================================================
 
 
-# get nickname
-def get_name(sid):
-    if db.check_user(sid):
-        nickname = db.get_nickname(sid)
+# initialization
+def init_new(sid):
+    dic = webvpn.init_login_new()
+    if webvpn.need_captcha_new(sid):
+        img = webvpn.get_captcha_new(dic['cookie'])
+        dic['captcha'] = base64.b64encode(img).decode()
     else:
-        nickname = None
-    return nickname
+        dic['captcha'] = False
+    print(dic)
+    return dic
+
+
+# verification
+def verify_new(username, password, execution,cookie, captcha=""):
+    if webvpn.login_new(username, password, execution,cookie,captcha):
+        return True
+    return False

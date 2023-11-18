@@ -1,113 +1,101 @@
-import json
-import os.path
-
-import config
+import db
+import execJs
+import user
 import webvpn
-import icalendar
-import datetime
-import uuid
-import saver
-
-# import db
-
-time_table = [
-    [[8, 0], [8, 45]],
-    [[8, 50], [9, 35]],
-    [[9, 55], [10, 40]],
-    [[10, 45], [11, 30]],
-    [[11, 35], [12, 20]],
-    [[13, 20], [14, 5]],
-    [[14, 10], [14, 55]],
-    [[15, 15], [16, 0]],
-    [[16, 5], [16, 50]],
-    [[16, 55], [17, 40]],
-    [[18, 30], [19, 15]],
-    [[19, 20], [20, 5]],
-    [[20, 10], [20, 55]],
-]
 
 
-# lec_sequence represents the start/end serial number of lecture,lec_seq_type indicates whether start/end
-def get_time(first_day, week, weekday, lec_sequence, lec_seq_type):
-    # datetime takes things like days in month,time zone and so on into account
-    delta = datetime.timedelta(weeks=week - 1, days=weekday - 1, hours=time_table[lec_sequence - 1][lec_seq_type][0],
-                               minutes=time_table[lec_sequence - 1][lec_seq_type][1])
-    return first_day + delta
+# get course in week format
+def get_course(username, term, week):
+    # the specified schedule with given username and week doesn't exist
+    if not db.term_courses_exist(username, term):
+        if not db.check_user(username):
+            return False, "No such user when attempting to get course!"
+        sid, pwd = db.get_sid_pwd(username)
 
+        # login first
+        if not (sid and pwd):
+            return False, "Course sid and pwd needed!"
+        init_response = user.init(sid)
+        # get parameters
+        cookie = init_response['cookie']
+        execution = init_response['execution']
+        captcha = init_response['captcha']
+        salt = init_response['salt']
+        # calculate password
+        encrypted_pwd = execJs.exec_encryptpassword(pwd, salt)
+        verify_response = user.verify(sid, encrypted_pwd, execution, cookie, captcha)
+        if verify_response == False:
+            return False, "Login course website failed!"
 
-# save schedule and return url dict
-def get_ics_url(cookie, sid, term):
-    # ics file exists
-    # filename = sid + "schedule.ics"
-    filename = sid + term + "schedule.ics"
-    filepath = os.path.join(config.ics_save_path, filename)
-    if os.path.exists(filepath):
-        print("Same schedule exists!")
-        return {'url': config.ics_url_prefix + filename}
-    # get and schedule in json
-    dic = webvpn.get_schedule_term(sid, cookie, term)
-    # fill calendar
-    cal = icalendar.Calendar()
-    cal['VERSION'] = '2.0'  # version
-    cal['X-WR-CALNAME'] = '个人课程表'  # calendar name
-    cal['TZID'] = 'Asia/Shanghai'  # time zone
-    first_day = datetime.datetime.strptime(dic['first_day'], r'%Y-%m-%d')
-    for lecture in dic['data']:
-        week_length = len(lecture['SKZC'])
-        for week in range(week_length):
-            # lectures exist in this week
-            if int(lecture['SKZC'][week]):
-                event = icalendar.Event()  # event component
-                event['UID'] = uuid.uuid4()  # unique identifier
-                event['SUMMARY'] = lecture['KCM']  # summary aka title
-                event['LOCATION'] = lecture['JASMC']  # location
-                # start&end time
-                event.add('DTSTART', get_time(first_day, week + 1, lecture['SKXQ'], lecture['KSJC'], 0))
-                event.add('DTEND', get_time(first_day, week + 1, lecture['SKXQ'], lecture['JSJC'], 1))
-                event['DESCRIPTION'] = "节数:" + str(lecture['KSJC']) + "-" + str(lecture['JSJC']) + "\n" + \
-                                       "课程号:" + str(lecture["KCH"]) + "\n" + \
-                                       "教师:" + str(lecture['SKJS']) + "\n" + \
-                                       "班级号:" + str(lecture['SKBJ']) + "\n" + \
-                                       "详细信息:" + str(lecture['YPSJDD'])
-                cal.add_component(event)
-    # filename = saver.save_ics(sid + 'schedule.ics', cal.to_ical())
-    filename = saver.save_ics(sid + term + 'schedule.ics', cal.to_ical())
-    # insert entry into courses
-    # db.insert_course(sid, filename)
-    return {'url': config.ics_url_prefix + filename}
+        # get course
+        get_result = webvpn.get_course(username, cookie, term)
+        if get_result == False:
+            return False, "Get course from website fail!"
 
-
-# get schedule of specified week and return week schedule dict
-def get_week_schedule(sid, target_week, term):
-    target_week = int(target_week)
-    filename = sid + term + "schedule.json"
-    filepath = os.path.join(config.json_save_path, filename)
-    if not os.path.exists(filepath):
-        return {'data': 'please get your schedule first'}
-    # make response data in specified format
-    with open(filepath, 'r',encoding="GBK") as f:
-        data = json.load(f)
-    # add valid courses
-    filtered_courses = []
-    for course in data['courses']:
-        week = course['WEEKINFO']
-        if week[target_week - 1] == '1':
-            filtered_courses.append(course)
+    # query specified courses
+    result, filtered_courses = db.get_courses(username, term, week)
+    if not result:
+        return False, "Query week num is incorrect!"
     # sort original json objects by WEEKDAY and STARTSEQ
-    sorted_courses = sorted(filtered_courses, key=lambda x: (x['WEEKDAY'], x['STARTSEQ']))
+    sorted_courses = sorted(filtered_courses, key=lambda x: (x['weekDay'], x['startSeq']))
     # fill week courses
     week_course = []
     for day in range(1, 8):
         day_course = []
         for course in sorted_courses:
-            if int(course['WEEKDAY']) == day:
-                start_seq = int(course['STARTSEQ'])
-                end_seq = int(course['ENDSEQ'])
+            if int(course['weekDay']) == day:
+                start_seq = int(course['startSeq'])
+                end_seq = int(course['endSeq'])
                 for i in range(start_seq, end_seq + 1):
                     tmp_course = course.copy()
-                    tmp_course['COURSEINDEX'] = str(i)
+                    tmp_course.pop('weekDay')
+                    tmp_course.pop('startSeq')
+                    tmp_course.pop('endSeq')
+                    tmp_course['courseIndex'] = str(i)
                     day_course.append(tmp_course)
         if len(day_course) == 0:
             continue
         week_course.append({'day': day, 'courses': day_course})
-    return {'data': week_course}
+    return True, {"weekCourses": week_course}
+
+
+# get schedule
+def get_schedule(username):
+    # the specified schedule with given username doesn't exist
+    if not db.schedule_exist(username):
+        if not db.check_user(username):
+            return False, "No such user when attempting to get schedule!"
+        # get schedule
+        get_result = webvpn.get_schedule(username)
+        if not get_result:
+            return False, "Get schedule from website fail!"
+
+    # query specified schedules
+    events = db.get_schedules(username)
+    return True, events
+
+
+# update schedule
+def update_schedule(username, event):
+    if not db.check_user(username):
+        return False
+    if db.update_schedule(username, event):
+        return True
+    return False
+
+
+# create schedule
+def insert_schedule(username, event):
+    if not db.check_user(username):
+        return False
+    db.insert_schedule(username, event)
+    return True
+
+
+# mark schedule
+def mark_schedule(username, eventID):
+    if not db.check_user(username):
+        return False
+    if db.mark_schedule(username, eventID):
+        return True
+    return False

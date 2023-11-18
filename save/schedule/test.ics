@@ -1,0 +1,363 @@
+BEGIN:VCALENDAR
+METHOD:PUBLISH
+PRODID:-//Moodle Pty Ltd//NONSGML Moodle Version 2021051708.02//EN
+VERSION:2.0
+BEGIN:VEVENT
+UID:3847478@lexue.bit.edu.cn
+SUMMARY:第二部分作业 已到期
+DESCRIPTION:×\n\n要求同作业一，3月31日截止。\n\n2-1 设某机字长8位（含一位符号位），分别写出下列各二进制数的原码、补码和反
+	码。\n\n0，-0，0.1000，-0.1000，0.1111，-0.1111，1101，-1101， -4/16，7/16\n\n2-2 一个n位
+	字长的二进制定点整数，其中一位为符号位，分别写出在补码和反码两种情况下：\n\n     a.模数                          
+	   b.最大的正数\n\n     c.绝对值最大的负数        d.符号位的权\n\n     e.-1的表示形式             
+	 f.0的表示形式\n\n2-3 某机字长16位，问下列几种情况下所能表示数值的范围。\n\na.无符号整数\n\nb.用原码表示定点小数\n\nc.
+	用补码表示定点小数\n\nd.用原码表示定点整数\n\ne.用补码表示定点整数\n\n2-4 某浮点数字长12位，其中阶符1位，阶码3位，数符1位，尾
+	数7位，阶码以2为底，阶码和尾数均用补码表示。它所能表示的最大正数是多少？最小规格化正数是多少？绝对值最大的负数是多少？\n\n2-5 试将(-0.1
+	101)2用IEEE短实数浮点格式表示出来。\n\n2-6设计一个9位先行进位加法器，每3位为一组，采用两级先行进位线路。\n\n2-7 已知X和Y，
+	试用它们的变形补码计算出X+Y，并指出结果是否溢出。\n\na.    X=0.11011，Y=0.11111\n\nb.   X=0.11011，Y
+	=-0.10101\n\n2-8 已知X和Y，试用它们的变形补码计算出X-Y，并指出结果是否溢出。\n\na.X=0.11011，Y=-0.11111
+	\n\nb.X=0.10111，Y=0.11011\n\n2-9 用补码一位乘法计算X×Y。X=0.11011，Y=-0.11111\n\n2-10 
+	用补码加减交替法计算X÷Y。 X=-0.10101，Y=0.11011\n\n2-11 设浮点数的阶码和尾数部分均用补码表示，按照浮点数的运算规则，\
+	n\nX=2101×(-0.100010)，Y=2100×(-0.111110)，求X+Y，X-Y。\n\n2-12 设浮点数的阶码和尾数部分均用补码
+	表示，按照浮点数的运算规则，计算下列各题：\n\n⑴X=23×（13/16)，Y=24´×(-9/16)，求X×Y。\n\n⑵X=23×(-13/16
+	)，Y=25×(15/16) ，求X÷Y。\n\n2-13某机为定长指令字结构，指令长度16位；每个操作数的地址码长6位，指令分为无操作数、单操作数和
+	双操作数三类。若双操作数指令已有K种，无操作数指令已有L种，问单操作数指令最多可能有多少种？上述三类指令各自允许的最大指令条数是多少？\n\n2-14
+	设某机为定长指令字结构，指令长度12位，每个地址码占3位，试提出一种分配方案，使该指令系统包含：4条三地址指令，8条二地址指令，180条单地址指令。\
+	n\n2-15 计算下列四条指令的有效地址（指令长度为16位）。\n\n    a.000000Q        b.100000Q\n\n    c
+	.170710Q        d.012305Q\n\n    假定：上述四条指令均用八进制书写；指令的最左边是一位间址指示位＠。（＠=0，直接寻址
+	；＠=1，间接寻址），且具有多重间访功能；指令的最右边两位为形式地址；主存容量215单元，下表为有关主存单元的内容（八进制）：\n\n地址\n\n内容
+	\n\n00000\n\n00001\n\n00002\n\n00003\n\n00004\n\n00005\n\n00006\n\n00007\n\
+	n00010\n\n100002\n\n046710\n\n054304\n\n100000\n\n102543\n\n100001\n\n06321
+	5\n\n077710\n\n100005\n\n \n\n2-16 设相对寻址的转移指令占两个字节，第一个字节是操作码，第二个字节是相对位移量，用补
+	码表示。假设当前转移指令第一字节所在的地址为2000H，且CPU每取一个字节便自动完成(PC)+1→PC的操作。试问当执行JMP*+8和JMP*-9指
+	令（*为相对寻址特征）时，转移指令第二字节的内容各为多少？转移的目的地址各是什么？\n\n \n\n2-17指令中常用下列寻址方式来得到操作数：立即操
+	作数、间接寻址、直接寻址、寄存器寻址、相对寻址。请分别说明这些寻址方式的原理，并对它们在如下4个方面进行比较：可表示操作数的范围大小；除取指外，为获得
+	操作数所需访问主存的最少次数；为指明该操作数所占用指令中信息位数的多少；寻址复杂程度。\n\n \n\n2-18经统计，某机14条指令的使用频度分别为
+	：0.01，0.15，0.12，0.03，0.02，0.04，0.02，0.04，0.01，0.13，0.15，0.14，0.11，0.03。分别求出
+	用等长码、Huffman码、只有两种码长的扩展操作码等3种编码方式的操作码平均码长。\n\n \n\n2-19 一个处理机共有10条指令，各指令在程序
+	中出现的概率如下表所列：\n\n指令序号\n\n出现的概率\n\nHuffman编码\n\n2/8扩展编码法\n\n3/7扩展编码法\n\nI1\n\
+	nI2\n\nI3\n\nI4\n\nI5\n\nI6\n\nI7\n\nI8\n\nI9\n\nI10\n\n0.25\n\n0.20\n\n0.1
+	5\n\n0.10\n\n0.08\n\n0.08\n\n0.05\n\n0.04\n\n0.03\n\n0.02\n\n \n\n \n\n \n\
+	n操作码的平均长度\n\n \n\n \n\n \n\n操作码的信息冗余量\n\n \n\n \n\n \n\n（1）计算这10条的操作码最短平均长度
+	。\n\n（2）采用Huffman编码法编写这10条指令的操作码，并计算操作码的平均长度和信息冗余量。\n\n（3）采用2/8扩展编码法编写这10条指
+	令的操作码，并计算操作码的平均长度和信息冗余量。\n\n（4）采用3/7扩展编码法编写这10条指令的操作码，并计算操作码的平均长度和信息冗余量，把得到
+	的操作码编码和计算的结果填入上表中。\n\n \n\n2-20设某机要求有：三地址指令4条，单地址指令255条，零地址指令6条。设指令字长为12位，每
+	个地址码长为3位。问能否以扩展操作码为其编码？如果其中单地址指令为254条呢？说明其理由。\n\n \n\n2-21某模型机有8条指令，使用频率分别为
+	：\n\n0.3，0.3，0.2，0.1，0.05，0.02，0.02，0.01\n\n试分别用Huffman编码和扩展操作码编码法对其操作码进行编码
+	，限定扩展编码只能有两种长度。则它们的平均编码长度各比定长操作码的平均编码长度减少多少？\n\n \n\n
+	
+CLASS:PUBLIC
+LAST-MODIFIED:20230410T084949Z
+DTSTAMP:20230423T133957Z
+DTSTART:20230331T160000Z
+DTEND:20230331T160000Z
+CATEGORIES:2023CCA
+END:VEVENT
+BEGIN:VEVENT
+UID:3847189@lexue.bit.edu.cn
+SUMMARY:Lab-3 实验报告截止
+DESCRIPTION:提交实验 [1]报告截止日期\n\n\nLinks:\n------\n[1] https://lexue.bit.edu.c
+	n/mod/folder/view.php?id=397814\n
+	
+CLASS:PUBLIC
+LAST-MODIFIED:20230226T055700Z
+DTSTAMP:20230423T133957Z
+DTSTART:20230402T155900Z
+DTEND:20230402T155900Z
+CATEGORIES:100071011 计算机网络 (双语) (2020级本科生) 计算机学院 2022-2023-2
+END:VEVENT
+BEGIN:VEVENT
+UID:3847216@lexue.bit.edu.cn
+SUMMARY:上课 2 ~ 15 周/ 共 16 周
+DESCRIPTION:
+CLASS:PUBLIC
+LAST-MODIFIED:20230226T090032Z
+DTSTAMP:20230423T133957Z
+DTSTART:20230404T010000Z
+DTEND:20230404T010000Z
+CATEGORIES:100071011 计算机网络 (双语) (2020级本科生) 计算机学院 2022-2023-2
+END:VEVENT
+BEGIN:VEVENT
+UID:3846760@lexue.bit.edu.cn
+SUMMARY:自上而下分析方法基本概念小测验 开启
+DESCRIPTION:请按时完成。\n
+CLASS:PUBLIC
+LAST-MODIFIED:20230404T110203Z
+DTSTAMP:20230423T133957Z
+DTSTART:20230404T033500Z
+DTEND:20230404T033500Z
+CATEGORIES:编译原理与设计2023
+END:VEVENT
+BEGIN:VEVENT
+UID:3847217@lexue.bit.edu.cn
+SUMMARY:上课 2 ~ 15 周/ 共 16 周
+DESCRIPTION:
+CLASS:PUBLIC
+LAST-MODIFIED:20230226T090040Z
+DTSTAMP:20230423T133957Z
+DTSTART:20230405T010000Z
+DTEND:20230405T010000Z
+CATEGORIES:100071011 计算机网络 (双语) (2020级本科生) 计算机学院 2022-2023-2
+END:VEVENT
+BEGIN:VEVENT
+UID:3849550@lexue.bit.edu.cn
+SUMMARY:Lab 4. ：C语言语法文法设计与验证实验 已到期
+DESCRIPTION:具体要求见附件所示。\n
+CLASS:PUBLIC
+LAST-MODIFIED:20230404T110203Z
+DTSTAMP:20230423T133957Z
+DTSTART:20230406T160000Z
+DTEND:20230406T160000Z
+CATEGORIES:编译原理与设计2023
+END:VEVENT
+BEGIN:VEVENT
+UID:3847000@lexue.bit.edu.cn
+SUMMARY:Chapter 4 Assignments 已到期
+DESCRIPTION:Please submit your assignments for Chapter 4 here. \n\nDue Date
+	: 2023-04-09\nFormat: word\nFILE NAMING CONVENTIONS: 你的学号你的姓名你的行政班号-第4章.doc
+	x\n
+	
+CLASS:PUBLIC
+LAST-MODIFIED:20230330T075903Z
+DTSTAMP:20230423T133957Z
+DTSTART:20230409T155900Z
+DTEND:20230409T155900Z
+CATEGORIES:100071011 计算机网络 (双语) (2020级本科生) 计算机学院 2022-2023-2
+END:VEVENT
+BEGIN:VEVENT
+UID:3847191@lexue.bit.edu.cn
+SUMMARY:Lab-4、Lab-5、Lab-6 实验报告截止
+DESCRIPTION:Lab-4 交换机MAC地址表管理\nLab-5 STP配置与分析\nLab-6 虚拟局域网（VLAN）配置与分析\n提交实验
+	 [1]报告的截止日期\n\n\nLinks:\n------\n[1] https://lexue.bit.edu.cn/mod/folder/vi
+	ew.php?id=397814\n
+	
+CLASS:PUBLIC
+LAST-MODIFIED:20230226T055855Z
+DTSTAMP:20230423T133957Z
+DTSTART:20230409T155900Z
+DTEND:20230409T155900Z
+CATEGORIES:100071011 计算机网络 (双语) (2020级本科生) 计算机学院 2022-2023-2
+END:VEVENT
+BEGIN:VEVENT
+UID:3849135@lexue.bit.edu.cn
+SUMMARY:第三部分作业 已到期
+DESCRIPTION:1.        （5-4） 某机存储字长64位，主存储器按字节编址，现有四种不同长度的数据：字节、半字（16位）、单字（3
+	2位）、双字（64位），请采用一种既节省存储空间，又能保证任一个数据都在单个存取周期中完成读写的方法将不同长度的数据存入主存（采用大端方案）。\n\n
+	（1）写出不同长度数据存放在主存中地址的限定要求（即第一个字节的地址）。\n\n（2）画出将字节、双字、半字、单字、字节这5个数据依次存放在主存中的示
+	意图（不能改变顺序）。\n\n2.        （5-13） 现有1024×1的存储芯片，若用它组成容量为16K×8的存储器。试求：\n    ⑴ 
+	实现该存储器所需的芯片数量。\n    ⑵ 若将这些芯片分装在若干块板上，若每块板的容量为4K×8。该存储器所需的地址码总位数是多少？其中几位用于选板
+	？几位用于选片？几位用作片内地址？\n\n3.        （5-16） 现有如下存储芯片：2K×1的ROM；4K×1的RAM；8K×1的ROM。若
+	用它们组成容量为16KB的存储器，前4KB为ROM，后12KB为RAM，地址码采用16位。试问：\n\n    ⑴ 各种存储芯片分别用多少片？\n\n
+	    ⑵ 正确选用译码器及门电路，并画出相应的逻辑结构图。\n    ⑶ 指出有无地址覆盖现象。\n\n5.        （5-18） 有一个八位
+	机，采用单总线结构，地址总线16位（A15～A0），数据总线8位（D7～D0），控制总线中与主存有关的信号有MREQ（低电平有效允许访存），R/W（高
+	电平为读命令，低电平为写命令）。\n\n主存地址分配如下：从0～8191为系统程序区，由ROM芯片组成；从8192～32767为用户程序区；最后（最大
+	地址）2K地址空间为系统程序工作区。（上述地址均用十进制表示，按字节编址）\n\n现有如下存储芯片：8K×8的ROM；16K×1、2K×8、4K×8、
+	8K×8的SRAM。请从上述规格中选用芯片设计该机主存储器，画出主存的连接框图，并请注意画出片选逻辑及与CPU的连接。\n\n6.       （4-
+	1） 采用页式管理的虚拟存储系统中，什么叫“页面失效”？什么叫“页面争用”？什么时候，这两者不同时发生？什么时候，这两者又同时发生？\n\n7.   
+	    （4-2） 对于一个由两个存储器M1和M2构成的存储系统，设M1的命中率为H，两个存储器的存储容量分别为S1和S2，访问速度分别为T1和T2，
+	每千字节的价格分别为C1和C2？\n\n（1）在什么条件下，整个存储系统的每千字节平均价格会接近于C2？\n\n（2）写出这个存储系统的等效访问时间T
+	A的表达式。\n\n（3）假设存储系统的访问效率E=T1/TA，两个存储器的速度比R=T2/T1。试以速度比R和命中率H来表示访问效率E。\n\n（4
+	）如果R=100，为了使访问效率E>0.95，要求命中率H是多少？\n\n（5）对于（4）所要求的命中率实际上很难达到。假设实际的命中率只能达到0.9
+	6。现采用一种缓冲技术来解决这个问题。当访问M1不命中时，把包括被访问数据在内的一个数据块都从M2取到M1中，并假设被取到M1中的每个数据平均可以被重
+	复访问5次。请设计缓冲深度（即每次从M2取到M1中的数据块的大小）。\n\n8.       （4-3） 在页式虚拟存储系统中，一个程序由P1～P5共
+	5个页面组成。在程序执行过程中依次访问到的页面如下：P2\,P3\,P2\,P1\,P5\,P2\,P4\,P5\,P3\,P2\,P5\,P2\n\
+	n假设系统分配给这个程序的主存有3个页面，分别采用FIFO、LRU和OPT三种页面替换算法对这3页主存进行调度。\n\n（1）画出主存页面调入、替换和
+	命中的情况表。\n\n（2）统计三种页面替换算法的页命中率。\n\n9.       （4-4） 假设在一个采用组相联映象方式的CACHE中，主存由B
+	0~B7共8块组成，CACHE有两组，每组两块，每块的大小为16个字节，采用LRU块替换算法。在一个程序执行过程中依次访问这个CACHE的块地址流如下
+	：B6\,B2\,B4\,B1\,B4\,B6\,B3\,B0\,B4\,B5\,B7\,B3\n\n（1）写出主存地址的格式，并标出各字段的长度。\
+	n\n（2）写出CACHE地址的格式，并标出各字段的长度。\n\n（3）画出主存与CACHE之间各个块的映象对应关系。\n\n（4）采用LRU替换算法
+	，计算CACHE的块命中率。\n\n（5）如果改为全相联映象方式，再做（4），可以得出什么结论？\n\n（6）如果在程序执行过程中，每从主存装入一块到
+	CACHE，则平均要对这个块访问16次。请计算在这种情况下的CACHE命中率。\n\n10.    （4-5）某虚拟存储系统共8个页面，每页为1024
+	个字，实际主存为4096个字，采用页表法进行地址映象。页表的内容如表4-9所示。\n\n表4-9 页表\n\n虚页号\n\n实页号\n\n装入位\n\
+	n0\n\n3\n\n1\n\n1\n\n1\n\n1\n\n2\n\n2\n\n0\n\n3\n\n3\n\n0\n\n4\n\n2\n\n1\n\
+	n5\n\n1\n\n0\n\n6\n\n0\n\n1\n\n7\n\n0\n\n0\n\n(1) 列出会发生页面失效的全部虚页号；\n\n(2) 按
+	以下虚地址：0，3278，1023，1024，2055，7800，4096，6800，计算对应的主存实地址。\n\n11.    （4-6）某程序包含
+	5个虚页，其页地址为4，5，3，2，5，1，3，2，2，5，1，3。当使用LRU法替换时，为获得最高的命中率，至少应分配给该程序几个实页？其可能的最高
+	命中率为多少？\n\n12.    （4-7）有一个CACHE存储系统，主存共分8个块（0～7），CACHE为4个块（0～3），采用组相联映象，组内块
+	数为2块，替换算法为近期最少使用算法（LRU）。\n\n(1) 画出主存、CACHE地址的各字段对应关系（标出位数）图；\n\n(2) 画出主存、CA
+	CHE空间块的各字段对应关系示意图；\n\n(3) 对于如下主存块地址流：1，2，4，1，3，7，0，1，2，5，4，6，4，7，2，如主存中内容一开
+	始未装入CACHE中，请列出CACHE中各块随时间的使用状况；\n\n(4) 对于(3)，指出块失效又发生块争用的时刻；\n\n(5) 对于(3)，求
+	出此期间CACHE之命中率。\n\n
+	
+CLASS:PUBLIC
+LAST-MODIFIED:20230402T094405Z
+DTSTAMP:20230423T133957Z
+DTSTART:20230410T160000Z
+DTEND:20230410T160000Z
+CATEGORIES:2023CCA
+END:VEVENT
+BEGIN:VEVENT
+UID:3847218@lexue.bit.edu.cn
+SUMMARY:上课 2 ~ 15 周/ 共 16 周
+DESCRIPTION:
+CLASS:PUBLIC
+LAST-MODIFIED:20230226T090049Z
+DTSTAMP:20230423T133957Z
+DTSTART:20230411T010000Z
+DTEND:20230411T010000Z
+CATEGORIES:100071011 计算机网络 (双语) (2020级本科生) 计算机学院 2022-2023-2
+END:VEVENT
+BEGIN:VEVENT
+UID:3846761@lexue.bit.edu.cn
+SUMMARY:自上而下分析方法基本概念小测验 关闭
+DESCRIPTION:请按时完成。\n
+CLASS:PUBLIC
+LAST-MODIFIED:20230404T110203Z
+DTSTAMP:20230423T133957Z
+DTSTART:20230411T155900Z
+DTEND:20230411T155900Z
+CATEGORIES:编译原理与设计2023
+END:VEVENT
+BEGIN:VEVENT
+UID:3850106@lexue.bit.edu.cn
+SUMMARY:作业3—自上而下的语法分析作业 已到期
+DESCRIPTION:作业内容：附件文件：作业3.docx；\n\n提交Word文档或pdf文档；\n\n文档命名：学号姓名\,比如：1120201
+	111李明.docx或1120201111李明.pdf。\n\n
+	
+CLASS:PUBLIC
+LAST-MODIFIED:20230404T110805Z
+DTSTAMP:20230423T133957Z
+DTSTART:20230411T155900Z
+DTEND:20230411T155900Z
+CATEGORIES:编译原理与设计2023
+END:VEVENT
+BEGIN:VEVENT
+UID:3847219@lexue.bit.edu.cn
+SUMMARY:上课 2 ~ 15 周/ 共 16 周
+DESCRIPTION:
+CLASS:PUBLIC
+LAST-MODIFIED:20230226T090057Z
+DTSTAMP:20230423T133957Z
+DTSTART:20230412T010000Z
+DTEND:20230412T010000Z
+CATEGORIES:100071011 计算机网络 (双语) (2020级本科生) 计算机学院 2022-2023-2
+END:VEVENT
+BEGIN:VEVENT
+UID:3847207@lexue.bit.edu.cn
+SUMMARY:Lab 10 实验报告截止
+DESCRIPTION:Lab 10 实验 [1]报告提交截止\n\n\n\nLinks:\n------\n[1] https://lexue.bi
+	t.edu.cn/mod/folder/view.php?id=397814\n
+	
+CLASS:PUBLIC
+LAST-MODIFIED:20230226T085637Z
+DTSTAMP:20230423T133957Z
+DTSTART:20230416T155900Z
+DTEND:20230416T155900Z
+CATEGORIES:100071011 计算机网络 (双语) (2020级本科生) 计算机学院 2022-2023-2
+END:VEVENT
+BEGIN:VEVENT
+UID:3847223@lexue.bit.edu.cn
+SUMMARY:上课 2 ~ 15 周/ 共 16 周
+DESCRIPTION:
+CLASS:PUBLIC
+LAST-MODIFIED:20230226T090345Z
+DTSTAMP:20230423T133957Z
+DTSTART:20230418T010300Z
+DTEND:20230418T010300Z
+CATEGORIES:100071011 计算机网络 (双语) (2020级本科生) 计算机学院 2022-2023-2
+END:VEVENT
+BEGIN:VEVENT
+UID:3847001@lexue.bit.edu.cn
+SUMMARY:Chapter 5 Assignments - Problem 1\, 2\, and 3 已到期
+DESCRIPTION:Please submit your assignments for Chapter 5 here. \n\nDUE DATE
+	: 2023-04-16\nUPDATE! DUE DATE: 2023-04-18\nFormat: word\nFILE NAMING CONVE
+	NTIONS: 你的学号你的姓名你的行政班号-第5章.docx\n
+	
+CLASS:PUBLIC
+LAST-MODIFIED:20230417T041301Z
+DTSTAMP:20230423T133957Z
+DTSTART:20230418T155900Z
+DTEND:20230418T155900Z
+CATEGORIES:100071011 计算机网络 (双语) (2020级本科生) 计算机学院 2022-2023-2
+END:VEVENT
+BEGIN:VEVENT
+UID:3847224@lexue.bit.edu.cn
+SUMMARY:上课 2 ~ 15 周/ 共 16 周
+DESCRIPTION:
+CLASS:PUBLIC
+LAST-MODIFIED:20230226T090353Z
+DTSTAMP:20230423T133957Z
+DTSTART:20230419T010300Z
+DTEND:20230419T010300Z
+CATEGORIES:100071011 计算机网络 (双语) (2020级本科生) 计算机学院 2022-2023-2
+END:VEVENT
+BEGIN:VEVENT
+UID:3849545@lexue.bit.edu.cn
+SUMMARY:Chapter 5 Assignments - Problem 4\, 5\, 6\, 7\, and 8 已到期
+DESCRIPTION:Please submit your assignments for Chapter 5 here. \n\nDue Date
+	: 2023-04-23\nFormat: word\nFILE NAMING CONVENTIONS: 你的学号你的姓名你的行政班号-第5章.doc
+	x\n
+	
+CLASS:PUBLIC
+LAST-MODIFIED:20230330T075903Z
+DTSTAMP:20230423T133957Z
+DTSTART:20230423T155900Z
+DTEND:20230423T155900Z
+CATEGORIES:100071011 计算机网络 (双语) (2020级本科生) 计算机学院 2022-2023-2
+END:VEVENT
+BEGIN:VEVENT
+UID:3847225@lexue.bit.edu.cn
+SUMMARY:上课 2 ~ 15 周/ 共 16 周
+DESCRIPTION:
+CLASS:PUBLIC
+LAST-MODIFIED:20230226T090402Z
+DTSTAMP:20230423T133957Z
+DTSTART:20230425T010300Z
+DTEND:20230425T010300Z
+CATEGORIES:100071011 计算机网络 (双语) (2020级本科生) 计算机学院 2022-2023-2
+END:VEVENT
+BEGIN:VEVENT
+UID:3847226@lexue.bit.edu.cn
+SUMMARY:上课 2 ~ 15 周/ 共 16 周
+DESCRIPTION:
+CLASS:PUBLIC
+LAST-MODIFIED:20230226T090410Z
+DTSTAMP:20230423T133957Z
+DTSTART:20230426T010400Z
+DTEND:20230426T010400Z
+CATEGORIES:100071011 计算机网络 (双语) (2020级本科生) 计算机学院 2022-2023-2
+END:VEVENT
+BEGIN:VEVENT
+UID:3849597@lexue.bit.edu.cn
+SUMMARY:(2) 编程项目 1 文档 (documentation for Project 1) 已到期
+DESCRIPTION:DUE DATE: 2023-04-23 (EXTENDED)\n\nDUE DATE: 2023-04-28\n\nINDI
+	VIDUAL WORK.\nPlease submit your documentation for Programming Project 1 (R
+	eliable file transfer using Go-Back-N protocol) here.\n\nTHE DOCUMENTATION 
+	INLUDE FILES AS FOLLOWING:\n1\, A MS WORD projct report describing the anal
+	ysis\, design\, languages and tools\, implementation\, test\, deployment an
+	d use\, and conclusions. Describe your project in details with text\, diagr
+	ams\, figures\, tables\, screenshots\, etc. in Chinese or English\;\n2\, A 
+	10-minute MS PowerPoint (PPT) report for the project presentation (Note: ad
+	d audio naration to your PPT to explain your work) \;\n3\, The complete sou
+	rce project and code (you can compress the entire project folder that inclu
+	des the source codes and all required libraries or packages into a single f
+	ile. \n4\, An executable program that can be installed and run on Windows 1
+	0.\n5\, NOTE THAT a single file must be less than 250MB in size or it canno
+	t be uploaded\;\n\nFile naming conventions:\n(1) for WORD Report: yourStude
+	ntIDyourNameyourClassID projectName-项目报告.docx\n(2) for PPT Report: yourStud
+	entIDyourNameyourClassID projectName-项目报告.pptx\n(3) for compressed source c
+	ode file: yourStudentIDyourNameyourClassID projectName-源工程.zip (or .rar)\n(
+	4) for the executable program: yourStudentIDprojectName.exe  (Note：do not i
+	nclude Chinese characters in the file name)\n
+	
+CLASS:PUBLIC
+LAST-MODIFIED:20230423T125316Z
+DTSTAMP:20230423T133957Z
+DTSTART:20230428T155900Z
+DTEND:20230428T155900Z
+CATEGORIES:100071011 计算机网络 (双语) (2020级本科生) 计算机学院 2022-2023-2
+END:VEVENT
+BEGIN:VEVENT
+UID:3847192@lexue.bit.edu.cn
+SUMMARY:Lab-7、Lab-8、Lab-9 实验报告提交截止
+DESCRIPTION:Lab-7 路由配置与分析\nLab-8 NAT配置与分析\nLab-9 IPv6网络配置与分析\n提交实验 [1]报告截止日
+	期\n\n\nLinks:\n------\n[1] https://lexue.bit.edu.cn/mod/folder/view.php?id=
+	397814\n
+	
+CLASS:PUBLIC
+LAST-MODIFIED:20230226T060230Z
+DTSTAMP:20230423T133957Z
+DTSTART:20230430T155900Z
+DTEND:20230430T155900Z
+CATEGORIES:100071011 计算机网络 (双语) (2020级本科生) 计算机学院 2022-2023-2
+END:VEVENT
+END:VCALENDAR
