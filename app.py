@@ -12,6 +12,7 @@ import execJs
 import saver
 import schedule
 import user
+import JWT
 
 app = Flask(__name__)
 CORS(app, resources=r"/*")
@@ -56,6 +57,23 @@ def test0():
     print("sid: " + sid)
     return get_response({'sid': sid, 'cookie': cookie, 'User-Agent': userAgent}, 500)
 
+# tests
+# "http://localhost:5000/test_create_jwt?username=1120202079"
+@app.route("/test_create_jwt/", methods=['GET'])
+def test_create_jwt():
+    username = request.args.get('username', '')
+    token=JWT.create_token(username)
+    return get_response(make_response_dict(200, "Jwt created!",token), 200)
+
+# "http://localhost:5000/test_verify_jwt"
+@app.route("/test_verify_jwt/", methods=['GET'])
+def test_verify_jwt():
+    auth = request.headers.get('Authorization')
+    result,msg=JWT.verify_token(auth)
+    if result:
+        return get_response(make_response_dict(200, "Jwt veridied!"), 200)
+    return get_response(make_response_dict(401,msg), 401)
+
 
 # "http://localhost:5000/api/user/register"
 @app.route("/api/user/register", methods=['POST'])
@@ -77,7 +95,8 @@ def user_login():
 
     if username and password:
         if db.user_login(username, password):
-            return get_response(make_response_dict(200, "Login success!"), 200)
+            token = JWT.create_token(username)
+            return get_response(make_response_dict(200, "Login success!",token), 200)
     return get_response(make_response_dict(400, "Login fail!"), 400)
 
 
@@ -89,6 +108,11 @@ def user_update():
     sid = request.form.get('sid', '')
     spwd = request.form.get('spwd', '')
     nickname = request.form.get('nickname', '')
+
+    auth = request.headers.get('Authorization')
+    result, msg = JWT.verify_token(auth)
+    if not result:
+        return get_response(make_response_dict(401, msg), 401)
 
     if username:
         if db.user_update(username, password, sid, spwd, nickname):
@@ -102,6 +126,11 @@ def get_courses():
     username = request.args.get('username', '')
     week = request.args.get('week', '')
     term = request.args.get('term', '')
+
+    auth = request.headers.get('Authorization')
+    result, msg = JWT.verify_token(auth)
+    if not result:
+        return get_response(make_response_dict(401, msg), 401)
 
     if not (username and week and term):
         return get_response(make_response_dict(400, "Course parameters needed!"), 400)
@@ -120,6 +149,11 @@ def insert_courses():
     term = request.args.get('term', '')
     # print("sid: "+sid+"  "+"username: "+username+"  "+"term: "+term)
 
+    auth = request.headers.get('Authorization')
+    result, msg = JWT.verify_token(auth)
+    if not result:
+        return get_response(make_response_dict(401, msg), 401)
+
     if sid and username and term:
         saver.insert_courses_test(sid, username, term)
         return get_response(make_response_dict(200, "Course insert success!"), 200)
@@ -130,6 +164,11 @@ def insert_courses():
 @app.route("/api/schedule", methods=['GET'])
 def get_schedule():
     username = request.args.get('username', '')
+
+    auth = request.headers.get('Authorization')
+    result, msg = JWT.verify_token(auth)
+    if not result:
+        return get_response(make_response_dict(401, msg), 401)
 
     if not username:
         return get_response(make_response_dict(400, "Schedule get parameters needed!"), 400)
@@ -145,6 +184,11 @@ def get_schedule():
 def update_schedule():
     username = request.form.get('username', '')
     event = request.form.get('event', '')
+
+    auth = request.headers.get('Authorization')
+    result, msg = JWT.verify_token(auth)
+    if not result:
+        return get_response(make_response_dict(401, msg), 401)
 
     if not (username and event):
         return get_response(make_response_dict(400, "Schedule update parameters needed!"), 400)
@@ -165,6 +209,11 @@ def insert_schedule():
     username = request.form.get('username', '')
     event = request.form.get('event', '')
 
+    auth = request.headers.get('Authorization')
+    result, msg = JWT.verify_token(auth)
+    if not result:
+        return get_response(make_response_dict(401, msg), 401)
+
     if not (username and event):
         return get_response(make_response_dict(400, "Schedule new parameters needed!"), 400)
 
@@ -183,6 +232,11 @@ def insert_schedule():
 def finish_schedule():
     username = request.form.get('username', '')
     eventID = request.form.get('eventID', '')
+
+    auth = request.headers.get('Authorization')
+    result, msg = JWT.verify_token(auth)
+    if not result:
+        return get_response(make_response_dict(401, msg), 401)
 
     if not (username and eventID):
         return get_response(make_response_dict(400, "Schedule finish parameters needed!"), 400)
