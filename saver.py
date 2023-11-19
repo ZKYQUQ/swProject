@@ -1,3 +1,4 @@
+import datetime
 import json
 import os
 import traceback
@@ -64,13 +65,14 @@ def save_json(sid, term, content):
     except Exception:
         traceback.print_exc()
 
+
 # ====================================================================================================
 # ====================================================================================================
 # ====================================================================================================
 
 
 # save schedule in json type
-def save_course(username, term, content):
+def save_course(username, term, content, first_day="2023-02-20"):
     new_data = []
     for course in content['data']:
         weeks = course['SKZC']
@@ -93,11 +95,11 @@ def save_course(username, term, content):
             'ENDSEQ': course['JSJC']  # end_seq
         }
         new_data.append(new_course)
-    db.insert_courses(username, term, new_data)
+    db.insert_courses(username, term, new_data, first_day)
 
 
 # get schedule of specified week and return week schedule dict
-def insert_courses_test(sid, username, term):
+def insert_courses_test(sid, username, term, first_day="2023-02-20"):
     filename = sid + term + "schedule.json"
     filepath = os.path.join(config.json_save_path, filename)
     if not os.path.exists(filepath):
@@ -106,7 +108,7 @@ def insert_courses_test(sid, username, term):
     with open(filepath, 'r', encoding="GBK") as f:
         data = json.load(f)
     # add valid courses
-    db.insert_courses(username, term, data['courses'])
+    db.insert_courses(username, term, data['courses'], first_day)
 
 
 def make_schedule_dict(username, eventID, date, time, name, description, isFinished):
@@ -123,11 +125,12 @@ def make_schedule_dict(username, eventID, date, time, name, description, isFinis
 
 # save schedule
 def save_schedule(username, filename):
+    course_list = save_course_schedule(username)
     # analyze ics file
     with open(filename, 'r', encoding='utf-8') as ics:
         data = ics.read()
         cal = icalendar.Calendar.from_ical(data)
-        eventID = 0
+        # eventID = 0
         schedule_list = []
         for event in cal.walk('VEVENT'):
             dtend = event.get("DTEND").dt
@@ -136,9 +139,60 @@ def save_schedule(username, filename):
             name = event.get("SUMMARY")
             description = event.get("DESCRIPTION")
             isFinished = False
-            schedule_list.append(make_schedule_dict(username, eventID, date_str, time_str, name, description, isFinished
+            schedule_list.append(make_schedule_dict(username, 0, date_str, time_str, name, description, isFinished
                                                     ))
-            eventID = eventID + 1
-        db.insert_schedules(schedule_list)
+        course_list.extend(schedule_list)
+        save_list = sorted(course_list, key=lambda x: x['date'])
+        for i, schedule in enumerate(save_list):
+            schedule['eventID'] = i
+        db.insert_schedules(save_list)
 
 
+# save course as schedule
+def save_course_schedule(username):
+    result, courses_list = db.get_all_courses(username)
+    courses_list = split_courses(courses_list)
+    print(courses_list)
+    schedule_list = []
+    for course in courses_list:
+        schedule_list.append(
+            make_schedule_dict(username, 0, course['date'], course['startTime'], course['courseName'],
+                               course['detail'], False
+                               ))
+    return schedule_list
+
+
+def split_courses(courses_list):
+    split_courses_list = []
+
+    # 遍历每门课程
+    for course in courses_list:
+        course_name = course['courseName']
+        start_time = course['startTime']
+        week_info = course['weekInfo']
+        week_day = int(course['weekDay'])
+        detail = course['detail']
+        first_day = datetime.datetime.strptime(course['firstDay'], '%Y-%m-%d')
+
+        # 计算每门课程的具体上课日期
+        for week in range(len(week_info)):
+            if week_info[week] == '1':
+                # 计算每周的日期偏移量
+                offset = (week * 7) + (week_day - first_day.weekday() - 1)
+                # 计算具体上课日期
+                course_date = first_day + datetime.timedelta(days=offset)
+                course_date_str = course_date.strftime('%Y-%m-%d')
+
+                # 创建新的课程字典并添加到拆分后的课程列表中
+                split_course = {
+                    'courseName': course_name,
+                    'startTime': start_time,
+                    'date': course_date_str,
+                    'detail': detail
+                }
+                split_courses_list.append(split_course)
+
+    # 按日期排序课程列表
+    sorted_courses_list = sorted(split_courses_list, key=lambda x: (x['date'], x['startTime']))
+
+    return sorted_courses_list

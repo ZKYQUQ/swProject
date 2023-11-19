@@ -244,7 +244,7 @@ def get_course(username, cookie, term=''):
         r = redirection(schedule_url, head={'Cookie': cookie}, data={'XNXQDM': term})
         schedule_list = r.json()['datas']['cxxszhxqkb']['rows']
         save_content = {'data': schedule_list}
-        saver.save_course(username, term, save_content)
+        saver.save_course(username, term, save_content, first_day)
     except Exception:
         traceback.print_exc()
         return False

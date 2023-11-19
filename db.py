@@ -115,9 +115,10 @@ class Course(db.Model):
     weekDay = db.Column(db.Integer, primary_key=True, nullable=False)
     startSeq = db.Column(db.Integer, nullable=False)
     endSeq = db.Column(db.Integer, nullable=False)
+    firstDay = db.Column(db.String(20), nullable=False)
 
 
-def insert_courses(username, term, courses):
+def insert_courses(username, term, courses, first_day):
     # print("insert_courses")
     course_list = []
     for course in courses:
@@ -126,7 +127,7 @@ def insert_courses(username, term, courses):
                            , roomNo=course["ROOMNO"], startTime=course["STARTTIME"], endTime=course["ENDTIME"],
                            startWeek=course["STARTWEEK"], endWeek=course["ENDWEEK"]
                            , detail=course["DETAIL"], weekInfo=course["WEEKINFO"], weekDay=course["WEEKDAY"],
-                           startSeq=course["STARTSEQ"], endSeq=course["ENDSEQ"])
+                           startSeq=course["STARTSEQ"], endSeq=course["ENDSEQ"], firstDay=first_day)
         course_list.append(newCourse)
         # print("course added")
     add_all(course_list)
@@ -165,27 +166,20 @@ def get_courses(username, term, week):
             filtered_courses.append(dict)
     return True, filtered_courses
 
-# def get_all_courses(username):
-#     courses = Course.query.filter_by(username == username).all()
-#     filtered_courses = []
-#     for course in courses:
-#         weekInfo = course.weekInfo
-#         if weekInfo[week - 1] == '1':
-#             dict = {}
-#             dict["courseName"] = course.courseName
-#             dict["courseNo"] = course.courseNo
-#             dict["teacherName"] = course.teacherName
-#             dict["classNo"] = course.classNo
-#             dict["roomNo"] = course.roomNo
-#             dict["startTime"] = course.startTime
-#             dict["endTime"] = course.endTime
-#             dict["startWeek"] = course.startWeek
-#             dict["endWeek"] = course.endWeek
-#             dict["weekDay"] = course.weekDay
-#             dict["startSeq"] = course.startSeq
-#             dict["endSeq"] = course.endSeq
-#             filtered_courses.append(dict)
-#     return True, filtered_courses
+
+def get_all_courses(username):
+    courses = Course.query.filter_by(username=username).all()
+    courses_list=[]
+    for course in courses:
+        dict = {}
+        dict["courseName"] = course.courseName
+        dict["startTime"] = course.startTime
+        dict["weekDay"] = course.weekDay
+        dict["weekInfo"] = course.weekInfo
+        dict["detail"] = course.detail
+        dict["firstDay"] = course.firstDay
+        courses_list.append(dict)
+    return True, courses_list
 
 
 # Schedule

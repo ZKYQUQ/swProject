@@ -48,14 +48,12 @@ def make_response_dict(code, msg, data=None):
 
 
 # tests
-# "http://localhost:5000/test0?sid=1120202079&cookie="
+# "http://localhost:5000/test0?username=1120202079"
 @app.route("/test0/")
 def test0():
-    sid = request.args.get('sid', '')
-    cookie = request.args.get('cookie', '')
-    userAgent = request.headers.get("User-Agent")
-    print("sid: " + sid)
-    return get_response({'sid': sid, 'cookie': cookie, 'User-Agent': userAgent}, 500)
+    username = request.args.get('username', '')
+    saver.save_course_schedule(username)
+    return get_response("Success!",500)
 
 # tests
 # "http://localhost:5000/test_create_jwt?username=1120202079"
