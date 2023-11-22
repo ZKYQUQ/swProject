@@ -139,13 +139,17 @@ login_url = "https://login.bit.edu.cn/authserver/login"
 need_captcha_url = "https://login.bit.edu.cn/authserver/checkNeedCaptcha.htl"
 get_captcha_url = "https://login.bit.edu.cn/authserver/getCaptcha.htl"
 
-# schedule
+# course
 schedule_init_url = "https://jxzxehallapp.bit.edu.cn/jwapp/sys/funauthapp/api/getAppConfig/wdkbby-5959167891382285.do"
 schedule_lang_url = "https://jxzxehallapp.bit.edu.cn/jwapp/i18n.do?appName=wdkbby&EMAP_LANG=zh"
 schedule_now_term_url = "https://jxzxehallapp.bit.edu.cn/jwapp/sys/wdkbby/modules/jshkcb/dqxnxq.do"
 schedule_all_terms_url = "https://jxzxehallapp.bit.edu.cn/jwapp/sys/wdkbby/modules/jshkcb/xnxqcx.do"
 schedule_url = "https://jxzxehallapp.bit.edu.cn/jwapp/sys/wdkbby/modules/xskcb/cxxszhxqkb.do"
 schedule_date_url = "https://jxzxehallapp.bit.edu.cn/jwapp/sys/wdkbby/wdkbByController/cxzkbrq.do"
+
+# schedule
+lexueMainUrl="https://lexue.bit.edu.cn"
+lexueCalendarExportUrl="https://lexue.bit.edu.cn/calendar/export.php"
 
 
 # # redirection
@@ -257,15 +261,8 @@ def get_schedule(username):
         # todo: access website
 
         filename = "test.ics"
-        saver.save_schedule(username, config.schedule_path + filename)
+        # saver.save_schedule(username, config.schedule_path + filename)
     except Exception:
         traceback.print_exc()
         return False
     return True
-
-
-# 乐学主页
-lexueMainUrl="https://lexue.bit.edu.cn"
-
-# 乐学导出课程表页面
-lexueCalendarExportUrl="https://lexue.bit.edu.cn/calendar/export.php"

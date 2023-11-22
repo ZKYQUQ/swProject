@@ -196,3 +196,16 @@ def split_courses(courses_list):
     sorted_courses_list = sorted(split_courses_list, key=lambda x: (x['date'], x['startTime']))
 
     return sorted_courses_list
+
+
+# insert schedule
+def insert_schedule_test(username):
+    try:
+        # todo: access website
+
+        filename = "test.ics"
+        save_schedule(username, config.schedule_path + filename)
+    except Exception:
+        traceback.print_exc()
+        return False
+    return True

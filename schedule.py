@@ -32,6 +32,8 @@ def get_course(username, term, week):
         if get_result == False:
             return False, "Get course from website fail!"
 
+    if not db.term_courses_exist(username, term):
+        return False, "No courses of this user!"
     # query specified courses
     result, filtered_courses = db.get_courses(username, term, week)
     if not result:
@@ -70,6 +72,8 @@ def get_schedule(username):
         if not get_result:
             return False, "Get schedule from website fail!"
 
+    if not db.schedule_exist(username):
+        return False, "No schedule of this user!"
     # query specified schedules
     events = db.get_schedules(username)
     return True, events

@@ -158,6 +158,22 @@ def insert_courses():
     return get_response(make_response_dict(400, "Course insert fail!"), 400)
 
 
+# "http://localhost:5000/api/insert_schedule"
+@app.route("/api/insert_schedule", methods=['GET'])
+def insert_schedules():
+    username = request.args.get('username', '')
+
+    auth = request.headers.get('Authorization')
+    result, msg = JWT.verify_token(auth)
+    if not result:
+        return get_response(make_response_dict(401, msg), 401)
+
+    if username:
+        saver.insert_schedule_test(username)
+        return get_response(make_response_dict(200, "Schedule insert success!"), 200)
+    return get_response(make_response_dict(400, "Schedule insert fail!"), 400)
+
+
 # "http://localhost:5000/api/schedule"
 @app.route("/api/schedule", methods=['GET'])
 def get_schedule():

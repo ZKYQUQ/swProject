@@ -33,9 +33,9 @@ def to_dict(model):
     return dict((c, getattr(model, c)) for c in columns)
 
 
+# User
 class User(db.Model):
     __tablename__ = 'User'
-    # id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(20), primary_key=True, nullable=False)
     password = db.Column(db.String(20))
     sid = db.Column(db.String(20))
@@ -64,6 +64,7 @@ def user_login(username, password):
 def user_update(username, password, sid, spwd, nickname):
     user = User.query.filter_by(username=username).first()
     if user:
+        user.password = password if password else user.password
         user.sid = sid if sid else user.sid
         user.spwd = spwd if spwd else user.spwd
         user.nickname = nickname if nickname else user.nickname
