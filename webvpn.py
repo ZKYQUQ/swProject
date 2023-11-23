@@ -258,7 +258,6 @@ def get_course(username, cookie, term=''):
 # get schedule from website
 def get_schedule(username):
     try:
-        # todo: access website
 
         filename = "test.ics"
         # saver.save_schedule(username, config.schedule_path + filename)

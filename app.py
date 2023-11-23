@@ -147,10 +147,10 @@ def insert_courses():
     term = request.args.get('term', '')
     # print("sid: "+sid+"  "+"username: "+username+"  "+"term: "+term)
 
-    auth = request.headers.get('Authorization')
-    result, msg = JWT.verify_token(auth)
-    if not result:
-        return get_response(make_response_dict(401, msg), 401)
+    # auth = request.headers.get('Authorization')
+    # result, msg = JWT.verify_token(auth)
+    # if not result:
+    #     return get_response(make_response_dict(401, msg), 401)
 
     if sid and username and term:
         saver.insert_courses_test(sid, username, term)
@@ -163,10 +163,10 @@ def insert_courses():
 def insert_schedules():
     username = request.args.get('username', '')
 
-    auth = request.headers.get('Authorization')
-    result, msg = JWT.verify_token(auth)
-    if not result:
-        return get_response(make_response_dict(401, msg), 401)
+    # auth = request.headers.get('Authorization')
+    # result, msg = JWT.verify_token(auth)
+    # if not result:
+    #     return get_response(make_response_dict(401, msg), 401)
 
     if username:
         saver.insert_schedule_test(username)
