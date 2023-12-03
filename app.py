@@ -368,35 +368,6 @@ def get_week_course():
     return get_response({'msg': 'error'}, 500)
 
 
-# "http://localhost:5000/download?filename=11202020792022-2023-2schedule.json&type=json"
-@app.route("/download/")
-def download():
-    file_name = request.args.get('filename')
-    filetype = request.args.get('type')
-    if not (file_name and filetype):
-        return get_response({'msg': 'parameters invalid'}, 500)
-    if filetype == 'ics':
-        file_path = os.path.join(config.ics_save_path, file_name)
-    elif filetype == 'json':
-        file_path = os.path.join(config.json_save_path, file_name)
-    else:
-        return get_response({'msg': 'error'}, 500)
-    if os.path.isfile(file_path):
-        return send_file(file_path, as_attachment=True)
-    else:
-        return get_response({'msg': 'error'}, 500)
-
-
 if __name__ == '__main__':
-    # config.project_path=sys.argv[1]
-    # config.project_path = os.environ.get('PROJECT_PATH')
-    # config.ics_save_path = config.project_path + "save/ics"
-    # config.json_save_path = config.project_path + "save/json"
-    # config.psw_js_path = config.project_path + "EncryptPassword.js"
-
-    # print(config.project_path)
-    # print("input:  "+os.environ.get('PROJECT_PATH'))
-    # print("project:  "+config.project_path)
-    # print("json:  "+config.json_save_path)
     app.run(host="0.0.0.0", port=5000)
     # app.run(host='0.0.0.0', port=5000, debug=False, threaded=True)

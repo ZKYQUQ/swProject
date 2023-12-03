@@ -25,13 +25,6 @@ time_table1 = [
 ]
 
 
-# save schedule in icalendar type
-def save_ics(filename, data):
-    with open(os.path.join(config.ics_save_path, filename), "wb") as f:
-        f.write(data)
-    return filename
-
-
 # save schedule in json type
 def save_json(sid, term, content):
     try:
